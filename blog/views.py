@@ -1,3 +1,4 @@
+from mmap import PAGESIZE
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.views.generic import (
@@ -17,13 +18,13 @@ def home(request):
     }
     return render(request,'blog/home.html',context)
 
-
+# = /home
 class PostListView(ListView):
       model = Post
       template_name = 'blog/home.html' #default path to view: <app>/<model>_<viewtype>.html  blog/post_list.html
       context_object_name = 'posts'
       ordering = ['-date_posted']
-
+      paginate_by = 2
 
 class PostDetailView(DetailView):
       model = Post
